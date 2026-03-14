@@ -17,6 +17,7 @@ Employee Task Management is a small Flask web application for assigning work, tr
 - Flask
 - SQLite
 - Jinja2 templates
+- CSS
 
 ## Project Structure
 
@@ -25,6 +26,7 @@ Employee Task Management is a small Flask web application for assigning work, tr
 - `db_init.py` - database schema creation and seed data
 - `database/tasks.db` - SQLite database file
 - `templates/` - HTML templates for login, dashboard, task forms, and user management
+- `static/` - CSS styles for a better UI/UX
 
 ## Getting Started
 
@@ -129,9 +131,9 @@ Use the seeded accounts after running `db_init.py`:
 - The application runs with `debug=True`.
 - There is no automated test suite in the current project.
 - This project is a web app, not a JSON REST API.
-
 ## Development Notes
 
 - Database path: `database/tasks.db`
 - To reset local data, delete `database/tasks.db` and run `python db_init.py` again.
+- Some CSS styling and README.md was initially generated with the assistance of AI coding tools and then adjusted manually during development.
 
