@@ -1,8 +1,12 @@
 import sqlite3
+import bcrypt
 
 def init_db():
     conn = sqlite3.connect('database/tasks.db')
     cursor = conn.cursor()
+    
+    admin_password = bcrypt.hashpw('admin123'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    employee_password = bcrypt.hashpw('emp123'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     
     # Create users table
     cursor.execute('''
@@ -32,16 +36,16 @@ def init_db():
     # Insert default users
     cursor.execute('''
         INSERT OR IGNORE INTO users (username, password, role) 
-        VALUES ('admin', 'admin123', 'manager')
-    ''')
+        VALUES ('admin', ?, 'manager')
+    ''', (admin_password,))
     cursor.execute('''
         INSERT OR IGNORE INTO users (username, password, role) 
-        VALUES ('employee1', 'emp123', 'employee')
-    ''')
+        VALUES ('employee1', ?, 'employee')
+    ''', (employee_password,))
     cursor.execute('''
         INSERT OR IGNORE INTO users (username, password, role) 
-        VALUES ('employee2', 'emp123', 'employee')
-    ''')
+        VALUES ('employee2', ?, 'employee')
+    ''', (employee_password,))
     
     conn.commit()
     conn.close()

@@ -15,6 +15,7 @@ Employee Task Management is a small Flask web application for assigning work, tr
 
 - Python 3
 - Flask
+- bcrypt
 - SQLite
 - Jinja2 templates
 - CSS
@@ -38,10 +39,16 @@ Employee Task Management is a small Flask web application for assigning work, tr
 
 1. Create a virtual environment.
 2. Activate it.
-3. Install Flask.
+3. Install Flask
 
 ```bash
 pip install flask
+```
+
+4. Install bcrypt.
+
+```bash
+pip install bcrypt
 ```
 
 ### Initialize the Database
@@ -111,7 +118,7 @@ Use the seeded accounts after running `db_init.py`:
 
 - `id` - integer primary key
 - `username` - unique text value
-- `password` - plain text password
+- `password` - bcrypt password hash
 - `role` - `manager` or `employee`
 
 ### `tasks`
@@ -124,14 +131,10 @@ Use the seeded accounts after running `db_init.py`:
 - `created_by` - foreign key to `users.id`
 - `created_at` - timestamp with default current time
 
-## Notes and Current Limitations
-
-- Passwords are stored in plain text and should be hashed before production use. Will be added in the next commit.
-- The Flask `secret_key` is hardcoded in `app.py`.
-- The application runs with `debug=True`.
-
 ## Development Notes
 
+- The Flask `secret_key` is hardcoded in `app.py`.
+- The application runs with `debug=True`.
 - Database path: `database/tasks.db`
 - To reset local data, delete `database/tasks.db` and run `python db_init.py` again.
 - Some CSS styling and README.md was initially generated with the assistance of AI coding tools and then adjusted manually during development.

@@ -1,6 +1,27 @@
 import sqlite3
+import bcrypt
 
 DATABASE = 'database/tasks.db'
+
+def hash_password(password):
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def is_bcrypt_hash(password):
+    return isinstance(password, str) and password.startswith('$2')
+
+def verify_password(password, stored_password):
+    if not stored_password:
+        return False
+    if is_bcrypt_hash(stored_password):
+        return bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8'))
+    return password == stored_password
+
+def update_user_password(user_id, password_hash):
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute('UPDATE users SET password = ? WHERE id = ?', (password_hash, user_id))
+    conn.commit()
+    conn.close()
 
 def get_db():
     conn = sqlite3.connect(DATABASE)
@@ -140,10 +161,11 @@ def create_user(username, password, role):
     conn = get_db()
     cursor = conn.cursor()
     try:
+        hashed_password = hash_password(password)
         cursor.execute('''
             INSERT INTO users (username, password, role)
             VALUES (?, ?, ?)
-        ''', (username, password, role))
+        ''', (username, hashed_password, role))
         conn.commit()
         user_id = cursor.lastrowid
         conn.close()

@@ -18,7 +18,9 @@ def login():
         
         user = db_ops.get_user_by_username(username)
         
-        if user and user['password'] == password:
+        if user and db_ops.verify_password(password, user['password']):
+            if not db_ops.is_bcrypt_hash(user['password']):
+                db_ops.update_user_password(user['id'], db_ops.hash_password(password))
             session['user_id'] = user['id']
             session['username'] = user['username']
             session['role'] = user['role']
