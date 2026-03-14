@@ -4,35 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User - Task Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_user.css') }}">
 </head>
 <body>
-    <div>
+    <div class="form-page">
+        <div class="form-card">
         <h1>Add New User</h1>
         
         {% if error %}
-        <p>{{ error }}</p>
+        <p class="error-message">{{ error }}</p>
         {% endif %}
         
         <form action="{{ url_for('add_user') }}" method="post">
             <p>
-                <label>Username: <input type="text" name="username" required></label>
+                <label>Username</label>
+                <input type="text" name="username" required>
             </p>
             <p>
-                <label>Password: <input type="password" name="password" required></label>
+                <label>Password</label>
+                <input type="password" name="password" required>
             </p>
             <p>
-                <label>Role: 
-                    <select name="role">
-                        <option value="employee">Employee</option>
-                        <option value="manager">Manager</option>
-                    </select>
-                </label>
+                <label>Role</label>
+                <select name="role">
+                    <option value="employee">Employee</option>
+                    <option value="manager">Manager</option>
+                </select>
             </p>
-            <p>
+            <p class="form-actions">
                 <button type="submit">Add User</button>
-                <a href="{{ url_for('view_all_users') }}">Cancel</a>
+                <a href="{{ url_for('view_all_users') }}" class="secondary-link">Cancel</a>
             </p>
         </form>
+        </div>
     </div>
 </body>
 </html>
