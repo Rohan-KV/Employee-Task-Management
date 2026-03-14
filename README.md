@@ -126,11 +126,10 @@ Use the seeded accounts after running `db_init.py`:
 
 ## Notes and Current Limitations
 
-- Passwords are stored in plain text and should be hashed before production use.
+- Passwords are stored in plain text and should be hashed before production use. Will be added in the next commit.
 - The Flask `secret_key` is hardcoded in `app.py`.
 - The application runs with `debug=True`.
-- There is no automated test suite in the current project.
-- This project is a web app, not a JSON REST API.
+
 ## Development Notes
 
 - Database path: `database/tasks.db`
